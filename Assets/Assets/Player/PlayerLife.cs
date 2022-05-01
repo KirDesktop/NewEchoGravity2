@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+    [Header("Health Settings")]
     [SerializeField] private int _health = 3;
     [SerializeField] private float _invulnerabilityTime;
     [SerializeField] private float _deathTime;
@@ -17,11 +18,16 @@ public class PlayerLife : MonoBehaviour
 
     private void _takeDamage(int damage)
     {
-        _health -= damage;
-
-        if (_health <= 0)
+        if (Time.time >= _timeToDamage)
         {
-            _death();
+            _timeToDamage = Time.time + _invulnerabilityTime;
+
+            _health -= damage;
+
+            if (_health <= 0)
+            {
+                _death();
+            }
         }
     }
 
@@ -48,6 +54,19 @@ public class PlayerLife : MonoBehaviour
         if (collision.gameObject.CompareTag("Spike"))
         {
             _takeDamage(_spikeDamage);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rune"))
+        {
+            RuneController.ton.activateRune();
+        }
+
+        if (collision.CompareTag("Portal"))
+        {
+            PortalController.ton.activatePortal();
         }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a5e7d3398b39b8348aa432ccd8f15504
+guid: 1f17f9bc0a07d324bb23c518d4fc27ab
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pidle_0
+      name: Gunmap_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 26
-        height: 64
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 965de3f637985a1439c9c9057a9a3c4c
-      internalID: 365183742
+      spriteID: e1b306531c16e3a479c8cef11a75e4b6
+      internalID: -226217795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pidle_1
+      name: Gunmap_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 27
         y: 0
-        width: 26
-        height: 64
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c4d4818494fba1408fdc3dd92971427
-      internalID: -158294307
+      spriteID: cfb8de0eb9730134e9197694c14f83e7
+      internalID: 2093229677
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pidle_2
+      name: Gunmap_2
       rect:
         serializedVersion: 2
-        x: 60
+        x: 54
         y: 0
-        width: 26
-        height: 64
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,8 +160,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26a6e3860427ba841ade0b4fad875c79
-      internalID: -1264723475
+      spriteID: 4b2ba8028f872f94685be46a148e3748
+      internalID: -962706717
       vertices: []
       indices: 
       edges: []
@@ -177,9 +177,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pidle_0: 365183742
-      pidle_1: -158294307
-      pidle_2: -1264723475
+      Gunmap_2: -962706717
+      Gunmap_1: 2093229677
+      Gunmap_0: -226217795
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -5,14 +5,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement ton;
+
     [Header("Player Settings")]
     [SerializeField] private float _speed;
     [SerializeField] private float _gravityScale;
     [SerializeField] private float _jumpForce;
 
-    private int _state = 0;
-    //0 - down
-    //1 - up
+    private int _state = 1;
+    //0 - up
+    //1 - down
     //2 - left
     //3 - right
 
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _rotationVector;
 
-    private float _horizontalInput = 0f;
+    [SerializeField]private float _horizontalInput = 0f;
 
     public bool ist;
 
@@ -35,31 +37,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void INPJump(InputAction.CallbackContext context)
     {
-        if (PlayerGroundChecker.isGrounded)
+        if (!PlayerGroundChecker.isGrounded) return;
+        if (!context.performed) return;
+
+        switch (_state)
         {
-            switch (_state)
-            {
-                case 0:
-                    {
-                        _rb.AddForce(new Vector2(0f, _jumpForce), ForceMode2D.Force);
-                        break;
-                    }
-                case 1:
-                    {
-                        _rb.AddForce(new Vector2(0f, -_jumpForce), ForceMode2D.Force);
-                        break;
-                    }
-                case 2:
-                    {
-                        _rb.AddForce(new Vector2(_jumpForce, 0f), ForceMode2D.Force);
-                        break;
-                    }
-                case 3:
-                    {
-                        _rb.AddForce(new Vector2(-_jumpForce, 0f), ForceMode2D.Force);
-                        break;
-                    }
-            }
+            case 0:
+                {
+                    _rb.AddForce(new Vector2(0f, -_jumpForce), ForceMode2D.Force);
+                    break;
+                }
+            case 1:
+                {
+                    _rb.AddForce(new Vector2(0f, _jumpForce), ForceMode2D.Force);
+                    break;
+                }
+            case 2:
+                {
+                    _rb.AddForce(new Vector2(_jumpForce, 0f), ForceMode2D.Force);
+                    break;
+                }
+            case 3:
+                {
+                    _rb.AddForce(new Vector2(-_jumpForce, 0f), ForceMode2D.Force);
+                    break;
+                }
         }
     }
 
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.gravity = new Vector2(0f, _gravityScale);
 
         _state = 0;
-        _rotationVector.z = 0f;
+        _rotationVector.z = 180f;
     }
 
     public void INPDownGChange(InputAction.CallbackContext context)
@@ -80,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.gravity = new Vector2(0f, -_gravityScale);
 
         _state = 1;
-        _rotationVector.z = 180f;
+        _rotationVector.z = 0f;
     }
 
     public void INPLeftGChange(InputAction.CallbackContext context)
@@ -107,6 +109,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        if (ton == null)
+        {
+            ton = this;
+        }
+
         _rb = this.GetComponent<Rigidbody2D>();
         _sr = this.GetComponent<SpriteRenderer>();
         _anim = this.GetComponent<Animator>();
@@ -122,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         ist = PlayerGroundChecker.isGrounded;
+
         if (_horizontalInput != 0)
         {
             
@@ -129,14 +137,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (_horizontalInput > 0)
         {
-            _sr.flipX = false;
+            _sr.flipX = _state == 0 ? false : true;
         }
         else if (_horizontalInput < 0)
         {
-            _sr.flipX = true;
+            _sr.flipX = _state == 0 ? true : false;
         }
 
-
+        this.transform.rotation = Quaternion.Euler(_rotationVector);
     }
 
     private void FixedUpdate()
@@ -150,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             case 1:
                 {
-                    _rb.velocity = new Vector2(-_speed * _horizontalInput, _rb.velocity.y);
+                    _rb.velocity = new Vector2(_speed * _horizontalInput, _rb.velocity.y);
                     break;
                 }
             case 2:
