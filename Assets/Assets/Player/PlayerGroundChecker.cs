@@ -7,6 +7,9 @@ public class PlayerGroundChecker : MonoBehaviour
     public static bool isGrounded = false;
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.CompareTag("Rune")) return;
+        if (collision.CompareTag("Portal")) return;
+
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
             isGrounded = true;
@@ -15,6 +18,9 @@ public class PlayerGroundChecker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.CompareTag("Rune")) return;
+        if (collision.CompareTag("Portal")) return;
+
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
             isGrounded = false;

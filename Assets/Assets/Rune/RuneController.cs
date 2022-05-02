@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class RuneController : MonoBehaviour
 {
+    [SerializeField] private GameObject _openPortalEffect;
     public static RuneController ton;
 
     private Animator _anim;
+
+    private bool _isActivate = false;
 
     private void Awake()
     {
@@ -20,8 +23,14 @@ public class RuneController : MonoBehaviour
 
     public void activateRune()
     {
-        PortalController.ton.openPortal();
+        if (_isActivate) return;
 
+        PortalController.ton.openPortal();
+        Instantiate(_openPortalEffect, this.transform);
+
+        _anim.SetTrigger("destroy");
+
+        _isActivate = true;
     }
 
     public void destroy()

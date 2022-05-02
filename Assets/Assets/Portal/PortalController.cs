@@ -8,6 +8,10 @@ public class PortalController : MonoBehaviour
     public static PortalController ton;
 
     [SerializeField] private GameObject _portalEffect;
+    [SerializeField] private GameObject _openStateEffect;
+
+    [SerializeField] private float _transferTime;
+    [SerializeField] private GameObject _transferEffect;
 
     public bool isOpen = false;
 
@@ -23,12 +27,14 @@ public class PortalController : MonoBehaviour
     {
         if (!isOpen) return;
 
-        _loadNewLevel();
+        Instantiate(_transferEffect);
+        Invoke("_loadNewLevel", _transferTime);
     }
 
     private void _loadNewLevel()
     {
-        Debug.Log("load");
+        // Debug.Log("load");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void openPortal()
@@ -36,5 +42,6 @@ public class PortalController : MonoBehaviour
         isOpen = true;
 
         _portalEffect.SetActive(true);
+        _openStateEffect.SetActive(true);
     }
 }
